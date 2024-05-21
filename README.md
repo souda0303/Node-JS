@@ -118,6 +118,6 @@ If you have any questions or suggestions, feel free to reach out:
 
 - **Email:** souda0303@gmail.com
 - **GitHub:** [souda0303]((https://github.com/souda0303))
-- **LinkedIn:** [souvikdas]([https://www.linkedin.com/in/yourname/](https://www.linkedin.com/in/souvik-das-585854206/))
+- **LinkedIn:** https://www.linkedin.com/in/souvik-das-585854206/
 
 ---
