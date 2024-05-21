@@ -1,0 +1,58 @@
+2. HTTP Methods in NodeJS
+
+### What is HTTP?
+
+**HTTP (HyperText Transfer Protocol)** is the foundation of data communication for the World Wide Web. It is an application layer protocol 
+used for transmitting hypertext documents, such as HTML, between a client (usually a web browser) and a server. HTTP is designed to enable 
+communications between clients and servers, allowing web browsers to fetch web pages and other resources from web servers.
+
+### How HTTP Works Internally
+
+HTTP operates as a request-response protocol in a client-server computing model. Here's a step-by-step overview of how it works internally:
+
+1. **Client Request**: The client, typically a web browser, initiates a request to the server. This request includes:
+   - **URL**: The address of the resource (e.g., a webpage).
+   - **HTTP Method**: Specifies the type of request (e.g., GET, POST).
+   - **Headers**: Provide additional information such as content type, user agent, cookies, etc.
+   - **Body**: (optional) Contains data sent to the server, used mainly with POST, PUT, and PATCH methods.
+
+2. **DNS Resolution**: Before sending the request, the client resolves the domain name (e.g., www.example.com) to an IP address using the 
+   Domain Name System (DNS).
+
+3. **TCP Connection**: The client establishes a TCP connection with the server. This typically happens over port 80 for HTTP or port 443 
+   for HTTPS (secure HTTP).
+
+4. **Server Processing**: The server receives the request, processes it, and performs actions such as querying a database, reading a file, 
+   or executing server-side scripts.
+
+5. **Server Response**: The server sends back a response to the client. This response includes:
+   - **Status Line**: Indicates the HTTP version, status code (e.g., 200 OK, 404 Not Found), and a status message.
+   - **Headers**: Provide metadata about the response, such as content type, length, server information, etc.
+   - **Body**: Contains the requested resource, such as an HTML document, image, or JSON data.
+
+6. **Rendering**: The client (web browser) processes the response. If the response is an HTML document, the browser renders it, which might 
+   involve fetching additional resources like CSS, JavaScript, and images.
+
+7. **TCP Connection Closure**: Depending on the connection type, the TCP connection may be closed immediately or kept alive for reuse in subsequent 
+requests (using the `Keep-Alive` header).
+
+### HTTP Methods
+
+HTTP defines several request methods, each serving a different purpose:
+
+1. **GET**: Requests a representation of the specified resource. GET requests should only retrieve data and should have no other effect.
+2. **POST**: Submits data to be processed to a specified resource. The data is included in the body of the request. Typically used for form 
+   submissions.
+3. **PUT**: Replaces all current representations of the target resource with the request payload.
+4. **DELETE**: Removes the specified resource.
+5. **HEAD**: Asks for a response identical to a GET request, but without the response body.
+6. **OPTIONS**: Describes the communication options for the target resource.
+7. **PATCH**: Applies partial modifications to a resource.
+8. **TRACE**: Performs a message loop-back test along the path to the target resource.
+9. **CONNECT**: Establishes a tunnel to the server identified by the target resource. Often used for SSL tunneling.
+
+### Summary
+
+HTTP is a protocol used for transferring data over the web, working on a request-response model between clients and servers. It operates over 
+TCP/IP and includes several methods for different types of interactions. Understanding how HTTP works internally and the various methods it 
+supports is essential for web development and networking.

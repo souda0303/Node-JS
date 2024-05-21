@@ -1,0 +1,164 @@
+Model-View-Controller (MVC) is a design pattern used for developing web applications. It divides the application into three interconnected components:
+
+1. **Model**: Represents the data and the business logic of the application. It handles data manipulation, database interactions, and defines 
+    how data is created, stored, and updated.
+
+2. **View**: Represents the user interface of the application. It is responsible for displaying the data to the user and taking user inputs.
+
+3. **Controller**: Acts as an intermediary between the Model and the View. It processes incoming requests, manipulates data using the Model, 
+    and returns the appropriate View.
+
+Express.js is a popular web application framework for Node.js that can be used to implement the MVC pattern. Below is a basic example 
+of how to structure an Express.js application following the MVC pattern.
+
+### Step-by-Step Implementation of MVC in Express.js
+
+#### 1. Project Setup
+First, set up your project and install the necessary packages.
+mkdir express-mvc-app
+cd express-mvc-app
+npm init -y
+npm install express mongoose ejs body-parser
+
+#### 2. Directory Structure
+Organize your project directory as follows:
+express-mvc-app/
+│
+├── controllers/
+│   └── userController.js
+├── models/
+│   └── userModel.js
+├── routes/
+│   └── userRoutes.js
+├── views/
+│   └── user.ejs
+│
+├── app.js
+├── package.json
+└── README.md
+
+#### 3. Model
+Create a user model in `models/userModel.js` using Mongoose (a MongoDB ODM for Node.js).
+
+const mongoose = require('mongoose');
+
+const userSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  password: String
+});
+
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
+
+
+#### 4. Controller
+Create a user controller in `controllers/userController.js` to handle the business logic.
+
+const User = require('../models/userModel');
+
+// Display list of all users
+exports.user_list = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.render('user', { users });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+// Create a new user
+exports.user_create = async (req, res) => {
+  try {
+    const user = new User(req.body);
+    await user.save();
+    res.redirect('/users');
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+#### 5. Routes
+Create user routes in `routes/userRoutes.js` to map URLs to controller functions.
+
+const express = require('express');
+const router = express.Router();
+const userController = require('../controllers/userController');
+
+// Route to get all users
+router.get('/users', userController.user_list);
+
+// Route to create a new user
+router.post('/users', userController.user_create);
+
+module.exports = router;
+
+
+#### 6. Views
+Create a view template in `views/user.ejs` to display the data.
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Users</title>
+</head>
+<body>
+  <h1>Users</h1>
+  <ul>
+    <% users.forEach(user => { %>
+      <li><%= user.name %> - <%= user.email %></li>
+    <% }) %>
+  </ul>
+  <form action="/users" method="post">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Add User</button>
+  </form>
+</body>
+</html>
+
+
+#### 7. Main Application File
+Set up the main application file `app.js` to glue everything together.
+
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const userRoutes = require('./routes/userRoutes');
+
+const app = express();
+
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost/express-mvc', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.set('view engine', 'ejs');
+
+// Routes
+app.use('/', userRoutes);
+
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+
+### Explanation
+- **Model (`userModel.js`)**: Defines the user schema and exports the User model.
+- **Controller (`userController.js`)**: Contains functions to handle user-related requests, like fetching all users and creating a new user.
+- **Routes (`userRoutes.js`)**: Maps HTTP requests to the corresponding controller functions.
+- **View (`user.ejs`)**: Renders the list of users and provides a form to add new users.
+- **Main App (`app.js`)**: Sets up the Express application, connects to the MongoDB database, and configures middleware and routes.
+
+This basic structure can be expanded and modified to fit the needs of more complex applications, but it provides a clear example of how to 
+implement the MVC pattern in an Express.js application.
+
+### For better understanding check out this link - https://www.scaler.com/topics/expressjs-tutorial/creating-mvc-architecture-for-restful-api/

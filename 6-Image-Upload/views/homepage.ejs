@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image-Uploader</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: #333;
+      }
+
+      .container {
+        background: #ffffff47;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 600px;
+        width: 100%;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h1 {
+        margin-bottom: 20px;
+        font-size: 2.5em;
+        color: #444;
+      }
+
+      .upload-form {
+        margin-bottom: 30px;
+        padding: 20px;
+        background: #f9f9f98e;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .file-input {
+        display: none;
+      }
+
+      .custom-file-label {
+        background-color: #f6d365;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        text-align: center;
+        display: inline-block;
+        margin-bottom: 5px;
+      }
+
+      .custom-file-label:hover {
+        background-color: #fda085;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .file-name {
+        margin-top: 10px;
+        font-size: 1em;
+        color: #666;
+        font-style: italic;
+      }
+
+      .upload-button {
+        background-color: #f6d365;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        margin-top: 10px;
+      }
+
+      .upload-button:hover {
+        background-color: #fda085;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .image-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .image-wrapper {
+        background: #f6f6f6;
+        border-radius: 8px;
+        padding: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .image-wrapper:hover {
+        transform: scale(1.05);
+      }
+
+      .uploaded-image {
+        max-width: 200px;
+        max-height: 200px;
+        border-radius: 4px;
+        display: block;
+        margin: 0 auto;
+      }
+
+      /* Media Queries for Mobile Devices */
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2em;
+        }
+
+        .upload-form {
+          margin-bottom: 20px;
+          padding: 15px;
+        }
+
+        .custom-file-label,
+        .upload-button {
+          width: 100%;
+          padding: 12px;
+        }
+
+        .image-wrapper {
+          padding: 8px;
+        }
+
+        .uploaded-image {
+          max-width: 150px;
+          max-height: 150px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>HomePage</h1>
+      <form
+        action="/upload"
+        method="POST"
+        enctype="multipart/form-data"
+        class="upload-form"
+      >
+        <input
+          type="file"
+          name="profileImage"
+          class="file-input"
+          id="file-input"
+        />
+        <label for="file-input" class="custom-file-label">Choose File</label>
+        <span class="file-name" id="file-name">No file chosen</span>
+        <button type="submit" class="upload-button">Upload</button>
+      </form>
+
+      <h2>Uploaded Images</h2>
+      <div class="image-gallery">
+        <% if (files && files.length) { %> <% files.forEach(file => { %>
+        <div class="image-wrapper">
+          <img
+            src="/uploads/<%= file %>"
+            alt="Uploaded Image"
+            class="uploaded-image"
+          />
+        </div>
+        <% }) %> <% } else { %>
+        <p>No images uploaded yet.</p>
+        <% } %>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("file-input")
+        .addEventListener("change", function () {
+          const fileName = this.files[0]
+            ? this.files[0].name
+            : "No file chosen";
+          document.getElementById("file-name").textContent = fileName;
+        });
+    </script>
+  </body>
+</html>

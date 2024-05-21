@@ -1,0 +1,127 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+.container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    color: #444;
+}
+
+.upload-form {
+    margin-bottom: 30px;
+}
+
+.file-input {
+    display: block;
+    margin: 0 auto 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.file-input:hover {
+    border-color: #aaa;
+}
+
+.upload-button {
+    background-color: #f6d365;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.upload-button:hover {
+    background-color: #fda085;
+}
+
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.image-wrapper {
+    background: #f6f6f6;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.image-wrapper:hover {
+    transform: scale(1.05);
+}
+
+.uploaded-image {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 4px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Media Queries for Mobile Devices */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .upload-form {
+        margin-bottom: 20px;
+    }
+
+    .file-input {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .upload-button {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .image-wrapper {
+        padding: 8px;
+    }
+
+    .uploaded-image {
+        max-width: 150px;
+        max-height: 150px;
+    }
+}

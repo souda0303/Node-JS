@@ -1,0 +1,36 @@
+In Express.js, HTTP headers are crucial for communication between the server and the client. They contain metadata about the request 
+or response being sent. Express allows you to set and access HTTP headers easily using its middleware and response methods. Let me 
+explain with an example:
+
+Suppose you have a simple Express.js server set up:
+
+const express = require('express');
+const app = express();
+
+// Route handler
+app.get('/', (req, res) => {
+  // Set a custom header
+  res.setHeader('X-Custom-Header', 'Hello from Express!');
+
+  // Send a JSON response with a custom header
+  res.json({ message: 'Hello, World!' });
+});
+
+// Start the server
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+
+In this example, we're setting a custom header `X-Custom-Header` with the value `Hello from Express!` using `res.setHeader()`. Then, 
+we're sending a JSON response with `res.json()`. When the client makes a GET request to the root route `/`, the server responds with a 
+JSON object containing the message "Hello, World!" along with the custom header.
+
+When the client receives the response, it can access this custom header along with other standard headers like `Content-Type`, `Content-Length`, etc.
+
+To see the headers in action, you can use tools like Postman or simply inspect the network tab in your browser's developer tools when 
+making a request to the server.
+
+This is a basic example, but it illustrates how you can work with HTTP headers in Express.js. You can set headers for different 
+routes, handle different types of requests (GET, POST, etc.), and manipulate headers based on various conditions in your application.

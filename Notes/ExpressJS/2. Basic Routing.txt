@@ -1,0 +1,110 @@
+2. Basic Routing in ExpressJS
+
+Basic routing in Express.js involves defining endpoints for your web application and specifying the 
+responses that should be sent back to the client when those endpoints are accessed. 
+
+### Route definition takes the following structure:
+    app.METHOD(PATH, HANDLER)
+    
+    Where:
+    ** app is an instance of express.
+    ** METHOD is an HTTP request method, in lowercase.
+    ** PATH is a path on the server.
+    ** HANDLER is the function executed when the route is matched.
+
+### Step: Defining Routes
+
+Routes are defined using HTTP methods (`GET`, `POST`, `PUT`, `DELETE`, etc.) and the corresponding path.
+
+#### Example Routes
+
+1. **Basic GET route:**
+   app.get('/', (req, res) => {
+     res.send('Hello, World!');
+   });
+
+2. **GET route with a parameter:**
+   app.get('/user/:id', (req, res) => {
+     const userId = req.params.id;
+     res.send(`User ID: ${userId}`);
+   });
+
+3. **POST route:**
+   // Middleware to parse JSON request bodies
+   app.use(express.json());
+
+   app.post('/user', (req, res) => {
+     const newUser = req.body;
+     res.send(`User created with name: ${newUser.name}`);
+   });
+
+4. **PUT route:**
+   app.put('/user/:id', (req, res) => {
+     const userId = req.params.id;
+     const updatedUser = req.body;
+     res.send(`User with ID: ${userId} updated`);
+   });
+
+5. **DELETE route:**
+   app.delete('/user/:id', (req, res) => {
+     const userId = req.params.id;
+     res.send(`User with ID: ${userId} deleted`);
+   });
+
+### Full Example in `app.js`
+
+Combining everything, your `app.js` would look something like this:
+
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Middleware to parse JSON request bodies
+app.use(express.json());
+
+// Basic GET route
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
+
+// GET route with a parameter
+app.get('/user/:id', (req, res) => {
+  const userId = req.params.id;
+  res.send(`User ID: ${userId}`);
+});
+
+// POST route
+app.post('/user', (req, res) => {
+  const newUser = req.body;
+  res.send(`User created with name: ${newUser.name}`);
+});
+
+// PUT route
+app.put('/user/:id', (req, res) => {
+  const userId = req.params.id;
+  const updatedUser = req.body;
+  res.send(`User with ID: ${userId} updated`);
+});
+
+// DELETE route
+app.delete('/user/:id', (req, res) => {
+  const userId = req.params.id;
+  res.send(`User with ID: ${userId} deleted`);
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
+
+### Running the Server
+
+To run your Express server, use the following command in your terminal:
+node app.js
+
+Now, your server is up and running, and you can test the routes using a tool like Postman or curl, or directly via your browser for GET requests. For example:
+
+- Access `http://localhost:3000/` to see "Hello, World!"
+- Access `http://localhost:3000/user/123` to see "User ID: 123"
+
+This is the basic setup for routing in Express.js. As your application grows, you can modularize your routes by using `express.Router()` and splitting them into different files.

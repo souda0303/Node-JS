@@ -1,0 +1,44 @@
+
+About Status Code:
+
+HTTP status codes are a set of standardized codes that are returned by a web server in response to a client's request made to the server. 
+These status codes communicate the outcome of the request to the client, indicating whether the request was successful, encountered an error, 
+or requires further action from the client.
+
+Here's a breakdown of some of the most commonly encountered HTTP status codes:
+
+1. **1xx Informational**: These are provisional responses indicating that the request has been received and understood but still in progress.
+
+   - **100 Continue**: The server has received the initial part of the request and the client should continue with the request or ignore it if 
+        already completed.
+   - **101 Switching Protocols**: The server is willing to change the application protocol being used on this connection.
+
+2. **2xx Success**: These status codes indicate that the request was received, understood, and processed successfully.
+
+   - **200 OK**: The request has succeeded.
+   - **201 Created**: The request has been fulfilled, resulting in the creation of a new resource.
+   - **204 No Content**: The server successfully processed the request and is not returning any content.
+
+3. **3xx Redirection**: These status codes indicate that further action needs to be taken by the client to fulfill the request.
+
+   - **301 Moved Permanently**: The requested resource has been permanently moved to a new URL.
+   - **302 Found (Moved Temporarily)**: The requested resource has been temporarily moved to a different URL.
+   - **304 Not Modified**: The client can use cached data because the resource has not been modified.
+
+4. **4xx Client Error**: These status codes indicate that there was a problem with the client's request.
+
+   - **400 Bad Request**: The server cannot process the request due to a client error.
+   - **401 Unauthorized**: The client must authenticate itself to get the requested response.
+   - **404 Not Found**: The requested resource could not be found on the server.
+
+5. **5xx Server Error**: These status codes indicate that the server encountered an error while processing the request.
+
+   - **500 Internal Server Error**: A generic error message indicating that something went wrong on the server.
+   - **503 Service Unavailable**: The server is currently unable to handle the request due to temporary overload or maintenance.
+
+These are just a few examples of HTTP status codes. There are many more status codes, each with its specific meaning. Understanding 
+these status codes can help developers diagnose and troubleshoot issues with web applications more effectively. In Express.js or any 
+other web framework, setting appropriate status codes in response to client requests is crucial for proper communication between the 
+client and server.
+
+**You can go through this link for better understanding - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status**

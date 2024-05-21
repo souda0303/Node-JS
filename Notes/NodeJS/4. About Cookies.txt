@@ -1,0 +1,75 @@
+In Node.js, cookies are small pieces of data that a server sends to a user's web browser. The browser may store these cookies and 
+send them back to the server with subsequent requests to the same server. Cookies are often used for session management, user 
+authentication, and storing user preferences.
+
+To handle cookies in Node.js, you typically use middleware such as `cookie-parser`. Here's a basic example of how to use `cookie-parser` 
+with an Express application:
+
+1. **Install Express and cookie-parser:**
+   npm install express cookie-parser
+
+
+2. **Create a basic Express app with cookie handling:**
+
+   const express = require('express');
+   const cookieParser = require('cookie-parser');
+   const app = express();
+
+   // Use the cookie-parser middleware
+   app.use(cookieParser());
+
+   // Set a cookie
+   app.get('/set-cookie', (req, res) => {
+     res.cookie('name', 'value', { maxAge: 900000, httpOnly: true });
+     res.send('Cookie has been set');
+   });
+
+   // Get a cookie
+   app.get('/get-cookie', (req, res) => {
+     let cookie = req.cookies['name'];
+     if (cookie) {
+       res.send(`Cookie value: ${cookie}`);
+     } else {
+       res.send('No cookie found');
+     }
+   });
+
+   // Clear a cookie
+   app.get('/clear-cookie', (req, res) => {
+     res.clearCookie('name');
+     res.send('Cookie has been cleared');
+   });
+
+   // Start the server
+   app.listen(3000, () => {
+     console.log('Server is running on port 3000');
+   });
+
+
+### Explanation:
+
+1. **Installation:**
+   You start by installing the `express` and `cookie-parser` packages. Express is a popular Node.js framework for building web applications, and `cookie-parser` is a middleware to parse cookies attached to the client request object.
+
+2. **Setting up the Express application:**
+   You create an instance of an Express application and use the `cookie-parser` middleware by calling `app.use(cookieParser());`.
+
+3. **Setting a cookie:**
+   - `res.cookie('name', 'value', { maxAge: 900000, httpOnly: true });`
+     This line sets a cookie named 'name' with the value 'value'. The `maxAge` option sets the duration in milliseconds before the cookie expires (15 minutes in this case). The `httpOnly` option indicates that the cookie cannot be accessed via JavaScript on the client side, providing some security against cross-site scripting (XSS) attacks.
+
+4. **Getting a cookie:**
+   - `let cookie = req.cookies['name'];`
+     You access the cookies sent by the client via `req.cookies`. This will return the value of the cookie named 'name'.
+
+5. **Clearing a cookie:**
+   - `res.clearCookie('name');`
+     This method clears the cookie named 'name' from the client's browser.
+
+6. **Starting the server:**
+   - `app.listen(3000, () => { console.log('Server is running on port 3000'); });`
+     This starts the Express server on port 3000.
+
+By using cookies in this way, you can maintain stateful information about users across different requests in a Node.js application.
+
+### You can go through this link for better understanding: https://www.relinns.com/blog/understanding-cookies-and-implementing-them-in-node-js/
